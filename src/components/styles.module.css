@@ -1,0 +1,47 @@
+.image_hash_ctn {
+  position: relative;
+  background-color: white;
+}
+.image_hash_ctn img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  object-fit: contain;
+  border: none;
+  outline: none;
+}
+.image_hash_ctn img:last-of-type {
+  z-index: 2;
+}
+
+.product_card_ctn {
+  background-color: white;
+  border-radius: 8px;
+  padding: 6px;
+}
+
+/* SEARCH BAR TOP */
+.search_top_bar_ctn,
+.search_top_bar_input {
+  height: 36px;
+}
+.search_top_bar_ctn > i {
+  color: #6d698d;
+}
+.search_top_bar_input {
+  box-shadow:
+    #20202329 0px 1px 3px,
+    #20202329 0px 1px 2px;
+  padding-left: 0.8rem;
+  line-height: 1;
+  padding-top: calc(1rem - 4px);
+  outline: none;
+  border: none;
+  background-color: #eae9ef;
+  border-radius: 16px;
+  resize: none;
+  padding-top: 10px;
+  padding-left: 14px;
+}
