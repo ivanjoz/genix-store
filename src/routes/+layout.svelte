@@ -2,7 +2,7 @@
   // @render 'svelte';
   import "../app.css";
   import "../lib/fontello-prerender.css";
-  import blurhashScript from "$lib/blurhash.js?raw";
+  import blurhashScript from "../lib/blurhash.js?raw";
   // import '../lib/fontello-embedded.css';
   let { children } = $props();
 </script>

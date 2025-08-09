@@ -1,5 +1,6 @@
 {
   "extends": "./.svelte-kit/tsconfig.json",
+  "include": ["src", "generated"],
   "compilerOptions": {
     "allowJs": true,
     "checkJs": true,
@@ -10,7 +11,14 @@
     "sourceMap": true,
     "strict": true,
     "moduleResolution": "bundler",
-    "allowImportingTsExtensions": true
+    "allowImportingTsExtensions": true,
+    "plugins": [{ "name": "css-modules-kit" }]
+    // "rootDirs": [".", "generated"]
+  },
+  "cmkOptions": {
+    // "dtsOutDir": "generated",
+    "namedExports": true,
+    "prioritizeNamedImports": true
   }
   // Path aliases are handled by https://svelte.dev/docs/kit/configuration#alias
   // except $lib which is handled by https://svelte.dev/docs/kit/configuration#files

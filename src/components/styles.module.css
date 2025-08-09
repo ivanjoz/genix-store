@@ -20,6 +20,7 @@
   background-color: white;
   border-radius: 8px;
   padding: 6px;
+  box-shadow: rgb(54 56 67 / 20%) 0px 2px 8px 0px;
 }
 
 /* SEARCH BAR TOP */
@@ -44,4 +45,37 @@
   resize: none;
   padding-top: 10px;
   padding-left: 14px;
+}
+
+/* MAIN CARRUSEL */
+.main_carrusel_ctn {
+  background-color: gray;
+}
+/*
+.product_cards_ctn > div:nth-child(n + 9) {
+  display: none;
+}
+*/
+/* (240 + 24) * 6 + 12 */
+@media (max-width: 1595px) {
+  .product_cards_ctn > div:nth-child(n + 11) {
+    display: none;
+  }
+}
+/* (240 + 24) * 5 + 12 */
+@media (max-width: 1331px) {
+  .product_cards_ctn > div:nth-child(n + 9) {
+    display: none;
+  }
+}
+/* (240 + 24) * 4 + 12 */
+@media (max-width: 1067px) {
+  .product_cards_ctn > div:nth-child(n + 7) {
+    display: none;
+  }
+}
+
+/* CATEGORIAS */
+.producto_caregoria_card {
+  background-color: #fbf1e4;
 }

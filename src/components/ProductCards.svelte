@@ -1,5 +1,6 @@
 <script>
   import ProductCard from "./ProductCard.svelte";
+  import s1 from "./styles.module.css";
 
   const imageHashArray = [
     "7ogGDobEysilemePeJeJl4l5almwpQQ=",
@@ -17,8 +18,11 @@
   ];
 </script>
 
-<div class="w-full">
-  <div class="flex flex-wrap justify-center">
+<div class="w-full flex justify-center overflow-x-hidden">
+  <div
+    class={"flex flex-wrap justify-center max-w-1680 w100-p12 " +
+      s1.product_cards_ctn}
+  >
     {#each imageHashArray as hash}
       <ProductCard css="w-240 m-12" {hash} />
     {/each}

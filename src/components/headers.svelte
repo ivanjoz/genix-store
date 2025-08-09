@@ -50,7 +50,7 @@
   hola
 </div>
 <div
-  class="sub-header flex items-center justify-between w-full left-0 {isSubheaderFixed
+  class="sub-header s1 flex items-center justify-between w-full left-0 {isSubheaderFixed
     ? 'h-52 top-0 fixed z-110'
     : 'h-68 top-48 absolute'}"
 >
@@ -71,6 +71,13 @@
     background-color: #ffffff;
     padding: 0 80px 0 80px;
     transition: height 0.3s ease;
+  }
+
+  .sub-header.s1 {
+    box-shadow:
+      rgba(0, 0, 0, 0.16) 0px 2px 6px,
+      rgba(0, 0, 0, 0.2) 0px 2px 8px;
+    z-index: 200;
   }
 
   /* Custom styles for smooth transitions */

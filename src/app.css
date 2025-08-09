@@ -1,4 +1,4 @@
-@import 'tailwindcss/utilities';
+@import "tailwindcss/utilities";
 @source not inline('--tw-backdrop-saturate');
 @source not inline('--tw-gradient-to-position');
 @source not inline('--tw-outline-style');
@@ -11,7 +11,18 @@
   --spacing: 1px;
 }
 
-body, input, textarea, button {
+@font-face {
+  font-family: "main";
+  src: url("/libs/lato-v24-latin-regular.woff2") format("woff2");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+body,
+input,
+textarea,
+button {
   margin: 0;
   font-family: main, Arial, Helvetica, sans-serif;
   font-size: 16px;
@@ -43,4 +54,10 @@ html {
 .bn1:hover {
   outline: 2px solid #4c55d5;
   background-color: #f5f6ff;
+}
+
+/* Esto es para que en los media query no se incluya la barra */
+.w100-p12 {
+  width: 100vw;
+  padding-right: 12px;
 }
