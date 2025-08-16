@@ -1,8 +1,10 @@
 import adapter from "@sveltejs/adapter-static";
-import { vitePreprocess } from "@sveltejs/vite-plugin-svelte";
+// import { vitePreprocess } from '@sveltejs/vite-plugin-svelte';
 
 /** @type {import('@sveltejs/kit').Config} */
 export default {
+  // Add preprocess here, it's essential for the compilerOptions to work
+  // preprocess: [vitePreprocess()],
   kit: {
     adapter: adapter({
       // default options are shown. On some platforms
@@ -30,4 +32,22 @@ export default {
       },
     },
   },
+  onwarn: (warning, handler) => {
+    return
+    if (warning.code === 'a11y_click_events_have_key_events'){ return }
+    handler(warning)
+  },
+  /*
+  compilerOptions: {
+    dev: true,
+    cssHash: ({ hash, css, name, filename }) => {
+      console.log("css:",css,"|",name)
+      // Generate short names in production
+      if (import.meta.env.PROD) {
+        return generateCounterClassName();
+      }
+      return name +"__"+ generateCounterClassName();
+    }
+  }
+  */
 };

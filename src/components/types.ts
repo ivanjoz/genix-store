@@ -1,5 +1,5 @@
 export interface ICategoriaProducto {
   Name: string;
-  Description: string;
+  Description?: string;
   Image: string;
 }

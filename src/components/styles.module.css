@@ -47,6 +47,13 @@
   padding-left: 14px;
 }
 
+.button_menu_top {
+  position: absolute;
+  background-color: #ecedff;
+  color: #4c55d5;
+  padding-bottom: 4px;
+}
+
 /* MAIN CARRUSEL */
 .main_carrusel_ctn {
   background-color: gray;

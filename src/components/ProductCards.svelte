@@ -1,6 +1,13 @@
 <script>
+    import { productosService } from "../services/productos.svelte";
   import ProductCard from "./ProductCard.svelte";
   import s1 from "./styles.module.css";
+
+  const { productos } = productosService()
+
+  $effect(() => {
+    console.log("productos obtenidos 1::", productos)
+  })
 
   const imageHashArray = [
     "7ogGDobEysilemePeJeJl4l5almwpQQ=",

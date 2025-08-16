@@ -3,12 +3,13 @@
   import "../app.css";
   import "../lib/fontello-prerender.css";
   import blurhashScript from "../lib/blurhash.js?raw";
-  // import '../lib/fontello-embedded.css';
+  import '../lib/fontello-embedded.css';
   let { children } = $props();
 </script>
 
 <svelte:head>
   {@html `<script type="text/javascript">${blurhashScript}</script>`}
+  {@html `<link rel="stylesheet" href="libs/fontello-embedded.css">`}
 </svelte:head>
 
 {@render children()}

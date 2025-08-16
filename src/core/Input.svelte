@@ -81,7 +81,7 @@
 
     if (type === "number") {
       if (!isBlur && !value && ev.key === "-") return;
-      if (isNaN(value as number)) {
+      if (isNaN(value as unknown as number)) {
         value = undefined as any;
       } else {
         value = parseFloat(value as string);
@@ -109,13 +109,6 @@
     return null;
   }
 
-  function getValue() {
-    if (typeof inputValue !== "number") return inputValue || "";
-    return baseDecimalsValue
-      ? (inputValue as number) / baseDecimalsValue
-      : inputValue;
-  }
-
   $effect(() => {
     const updaterVal = id ? inputUpdater.get(id) || 0 : 0;
     updaterVal; // dependency
@@ -129,15 +122,19 @@
 
 <div class={cN}>
   {#if label}
+    <div class={s1.input_lab_cell_left}><div></div></div>
     <div class={s1.input_lab}>
       {label}{@html iconValid() || ""}
     </div>
-    <div class={s1.input_lab1}>
-      {label}{@html iconValid() || ""}
-    </div>
+    <div class={s1.input_lab_cell_right}><div></div></div>
   {/if}
-
-  <div class={`${s1.input_div} w100`}>
+  <div class={s1.input_shadow_layer}>
+    <div></div>
+  </div>
+  <div class={`${s1.input_div} flex w100`}>
+    <div class={s1.input_div_1}>
+      <div></div>
+    </div>
     {#if useTextArea}
       <textarea
         class={`${s1.input_inp} ${inputCss || ""}`}

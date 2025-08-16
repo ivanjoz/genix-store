@@ -12,6 +12,7 @@
     "strict": true,
     "moduleResolution": "bundler",
     "allowImportingTsExtensions": true,
+    "strictNullChecks": false,
     "plugins": [{ "name": "css-modules-kit" }]
     // "rootDirs": [".", "generated"]
   },

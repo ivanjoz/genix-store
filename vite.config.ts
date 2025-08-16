@@ -2,11 +2,11 @@ import tailwindcss from "@tailwindcss/vite";
 import { sveltekit } from "@sveltejs/kit/vite";
 import { defineConfig } from "vite";
 import { transform } from "esbuild";
-import crypto from "crypto";
 
 // Custom base64 alphabet (CSS-safe characters only)
 const BASE64_CHARS =
   "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+globalThis.cssClassCounter = 65;
 
 function numberToBase64(num, minLength = 2) {
   if (num === 0) return "A".repeat(minLength);
@@ -20,9 +20,8 @@ function numberToBase64(num, minLength = 2) {
   return result;
 }
 
-let cssClassCounter = 65;
 const generateCounterClassName = () => {
-  return numberToBase64(cssClassCounter++, 3);
+  return numberToBase64(globalThis.cssClassCounter++, 3);
 };
 
 export default defineConfig({
@@ -63,18 +62,19 @@ export default defineConfig({
     sveltekit(),
   ],
   // assetsInclude: ["*/blurhash.js"],
+  /*
   css: {
     modules: {
       generateScopedName: (name, filename, css) => {
-        return generateCounterClassName();
         // Generate short names in production
         if (process.env.NODE_ENV === "production") {
-          return `_${Math.random().toString(36).substr(2, 3)}`;
+          return generateCounterClassName();
         }
-        return name; // Keep original names in development
+        return name +"__"+ generateCounterClassName();
       },
     },
   },
+  */
   build: {
     rollupOptions: {
       output: {

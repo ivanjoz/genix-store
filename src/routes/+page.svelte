@@ -6,7 +6,7 @@
 
   let categorias: ICategoriaProducto[] = [
     { Name: "Perfumes", Image: "images/categoria_1.webp" },
-    { Name: "Casacas", Image: "images/categoria_1.webp" },
+    { Name: "Casacas", Image: "images/casaca_icon_sm3.webp" },
     { Name: "Zapatos", Image: "images/categoria_1.webp" },
     { Name: "Relojes", Image: "images/categoria_1.webp" },
     { Name: "Decoración", Image: "images/categoria_1.webp" },

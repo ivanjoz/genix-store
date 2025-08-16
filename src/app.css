@@ -19,6 +19,11 @@
   font-display: swap;
 }
 
+body {
+  --input-height: 42px;
+  --input-border-color: #acb0c7;
+}
+
 body,
 input,
 textarea,
@@ -60,4 +65,8 @@ html {
 .w100-p12 {
   width: 100vw;
   padding-right: 12px;
+}
+
+.lh-11 {
+  line-height: 1.1;
 }
