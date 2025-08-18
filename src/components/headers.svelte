@@ -13,7 +13,7 @@
   // Handle scroll effect
   onMount(() => {
     const handleScroll = () => {
-      console.log("comparison:", window.scrollY, subheaderElement.offsetTop);
+      // console.log("comparison:", window.scrollY, subheaderElement.offsetTop);
 
       if (window.scrollY > subheaderElement.offsetTop) {
         isSubheaderFixed = true;

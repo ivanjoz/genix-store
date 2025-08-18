@@ -37,5 +37,11 @@ export const Env = {
     if(route[0] === "/"){ route = route.substring(1) }
     const sep = route.includes("?") ? "&" : "?"
     return api + route + sep + `empresa-id=${Env.empresaID}`
+  },
+  makeImageRoute: (route: string) => {
+    if(route.substring(0,6) !== "http//" && route.substring(0,7) !== "https//"){
+      route = Env.S3_URL + "img-productos/" + route
+    }
+    return route
   }
 }

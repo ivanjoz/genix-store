@@ -146,22 +146,6 @@ export function include(e: string, h: string | string[]) {
   }
 }
 
-export const ConfirmWarn = (
-  a: string, b: string, c: string, d?: string,
-  e?: () => void, f?: () => void,
-) =>{
-  Confirm.init({
-    fontFamily:'main',
-    messageFontSize:'0.96rem',
-    titleColor:'#db3030',
-    titleFontSize:'1.06rem',
-    messageColor:'#1e1e1e',
-    okButtonColor:'#f8f8f8',
-    okButtonBackground:'#f35c5c',
-  })
-  Confirm.show(a,b,c,d,e,f)
-}
-
 export const downloadFile = (url?: string) =>{
   const aElement = document.createElement("a")
   const names = url.split("/").filter(x => x)
@@ -184,4 +168,34 @@ export const parseSVG = (svgContent: string)=> {
 
 export const cn = (...classNames: (string|boolean)[]) => {
   return classNames.filter(x => x).join(" ")
+}
+
+export const arrayToMapS = <T>(array: T[], keys?: keyof T | (keyof T)[]):
+  Map<string, T> => {
+  const map = new Map()
+  if (typeof keys === 'string') { 
+    for (const e of array) { map.set(e[keys as keyof T], e) } 
+  } else if (Array.isArray(keys)) {
+    for (const e of array) {
+      const keyGrouped = keys.map(key => (e[key as keyof T] || "0")).join("_")
+      map.set(keyGrouped, e)
+    }
+  }
+  else { console.warn('No es un array::', array) }
+  return map
+}
+
+export const arrayToMapN = <T>(array: T[], keys?: keyof T | (keyof T)[]):
+  Map<number, T> => {
+  const map = new Map()
+  if (typeof keys === 'string') { 
+    for (const e of array) { map.set(e[keys  as keyof T], e) } 
+  } else if (Array.isArray(keys)) {
+    for (const e of array) {
+      const keyGrouped = keys.map(key => (e[key as keyof T] || "")).join("_")
+      map.set(keyGrouped, e)
+    }
+  }
+  else { console.warn('No es un array::', array) }
+  return map
 }

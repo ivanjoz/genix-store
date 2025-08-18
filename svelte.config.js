@@ -17,25 +17,43 @@ export default {
       strict: true,
     }),
     prerender: {
-      handleHttpError: ({ path, referrer, message }) => {
-        // Ignore 404s for image files during prerendering
-        if (
-          path.match(/\.(jpg|jpeg|png|gif|webp|svg)$/i) ||
-          (message.includes("404") && referrer)
-        ) {
-          console.warn(`Ignoring 404 for ${path} (linked from ${referrer})`);
-          return;
-        }
+      handleMissingId: 'ignore',
+      handleHttpError: ({ path, referrer, status, message }) => {
+        return 'fail';
+        /*
+        try {
+          console.log("=== ERROR HANDLER START ===");
+          console.log("hola 1");
+          
+          // Add more debugging info
+          console.log("Error details:", { path, referrer, status, message });
+          console.log("hola 2");
+          
+          // Check if the regex is causing issues
+          console.log("About to test regex...");
+          const isImageFile = path.match(/\.(jpg|jpeg|png|gif|webp|svg|avif)$/i);
+          console.log("Regex result:", isImageFile);
+          console.log("hola 2.5");
+          
+          if (isImageFile || (status === 404 && referrer)) {
+            console.log("hola 3 - inside if");
+            console.log(`Ignoring 404 for ${path} (linked from ${referrer})`);
+            console.log("hola 4 - about to return ignore");
+            return 'ignore';
+          } else {
+            console.log("hola 5 - in else branch");
+          }
 
-        // Throw for other errors
-        throw new Error(message);
+          console.log("hola 6 - before final return");
+          
+          return 'ignore';
+        } catch (error) {
+          console.log("ERROR IN HANDLER:", error);
+          return 'ignore';
+        }
+        */
       },
     },
-  },
-  onwarn: (warning, handler) => {
-    return
-    if (warning.code === 'a11y_click_events_have_key_events'){ return }
-    handler(warning)
   },
   /*
   compilerOptions: {

@@ -62,7 +62,6 @@ export default defineConfig({
     sveltekit(),
   ],
   // assetsInclude: ["*/blurhash.js"],
-  /*
   css: {
     modules: {
       generateScopedName: (name, filename, css) => {
@@ -74,9 +73,16 @@ export default defineConfig({
       },
     },
   },
-  */
   build: {
     rollupOptions: {
+      /*
+      external: (id) => {
+        // Skip processing of missing images during build
+        if (id.includes('/images/')) {
+          return true;
+        }
+      },
+      */
       output: {
         manualChunks: (id) => {
           return "my-app";

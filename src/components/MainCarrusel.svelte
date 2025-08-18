@@ -8,7 +8,7 @@
   let emblaApi;
   let options = { loop: false };
 
-  function onInit(event) {
+  function onInit(event: any) {
     emblaApi = event.detail;
     console.log(emblaApi.slideNodes()); // Access API
   }
@@ -39,7 +39,7 @@
   </div>
   <div
     class="embla h-full grow-1"
-    use:emblaCarouselSvelte={{ options }}
+    use:emblaCarouselSvelte={{ options } as any}
     onemblaInit={onInit}
   >
     <div class="embla__container h-full">

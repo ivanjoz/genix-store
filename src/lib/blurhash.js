@@ -288,7 +288,8 @@
       );
       // Example: Find and modify elements
       for (const el of Array.from(document.getElementsByClassName("_bhi_"))) {
-        const imageHash = el.getAttribute("src");
+        return
+        const imageHash = (el.getAttribute("src")||"").replace("/?","");
         if (!imageHash) {
           console.log("Missin image src:", el);
           continue;
