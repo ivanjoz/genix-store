@@ -19,7 +19,7 @@
       }}>Enviar</button
     >
   </div>
-  <div class="bg1 p-16">
+  <div class="_1 p-16">
     <div class="h-40">
       <div class="text-[24px]">Componentes</div>
     </div>
@@ -36,7 +36,7 @@
 </div>
 
 <style>
-  .bg1 {
+  ._1 {
     background-color: #e9eef1;
   }
 </style>

@@ -50,51 +50,58 @@ export interface IProductoCategoria {
 }
 
 export const productosServiceState = $state({
-  productos: [] as IProducto[],
-  productosMap: new Map() as Map<number, IProducto>,
-  categorias: [] as IProductoCategoria[],
-  categoriasMap: new Map() as Map<number, IProductoCategoria>,
-})
+  productos: [],
+  productosMap: new Map(),
+  categorias: [],
+  categoriasMap: new Map(),
+} as IProductosResult)
+
+export type IFetch = (
+  input: string | URL | Request, init?: RequestInit
+) => Promise<Response> 
+
+export interface IProductosResult {
+  productos: IProducto[]
+  productosMap: Map<number, IProducto>
+  categorias: IProductoCategoria[]
+  categoriasMap: Map<number, IProductoCategoria>
+}
+
+export const getProductos = async (categoriasIDs?: number[]): Promise<IProductosResult> => {
+  const apiRoute = `p-productos-cms?categorias=${(categoriasIDs || [0]).join(".")}`
+
+  if(!productosPromiseMap.has(apiRoute)) {
+    const headers = new Headers()
+    headers.append('Authorization', `Bearer 1`)
+    const fullRoute = Env.makeRoute(apiRoute)
+    console.log("Consultando Productos | API:", fullRoute)
+
+    productosPromiseMap.set(apiRoute, new Promise((resolve, reject) => {
+      fetch(fullRoute, { headers })
+        .then(res => {
+          return res.json()
+        })
+        .then(res => {
+          for(const e of res.productos as IProducto[]){
+            e.Image = (e.Images||[])[0] || { n: "" } as IProductoImage
+          }
+
+          res.productosMap = arrayToMapN(res.productos || [], 'ID')
+          res.categoriasMap = arrayToMapN(res.categorias || [], 'ID')
+          res.updated = Math.floor(Date.now() / 1000)
+          resolve(res)
+        })
+        .catch(err => {
+          reject(err)
+        })
+    }))
+  }
+
+  return await productosPromiseMap.get(apiRoute)
+}
 
 // Simple test version - productos.svelte.js
 export function useProductosService(categoriasIDs?: number[]) {
-  const apiRoute = `p-productos-cms?categorias=${(categoriasIDs || [0]).join(".")}`
-
-  if (typeof window !== 'undefined') {
-    if (!productosPromiseMap.has(apiRoute)) {
-      const headers = new Headers()
-      headers.append('Authorization', `Bearer 1`)
-
-      productosPromiseMap.set(apiRoute, new Promise((resolve, reject) => {
-        fetch(Env.makeRoute(apiRoute), { headers })
-          .then(res => {
-            return res.json()
-          })
-          .then(res => {
-            console.log("productos obtenidos2:", res)
-            for(const e of res.productos as IProducto[]){
-              e.Image = (e.Images||[])[0] || { n: "" } as IProductoImage
-            }
-
-            res.productosMap = arrayToMapN(res.productos || [], 'ID')
-            res.categoriasMap = arrayToMapN(res.categorias || [], 'ID')
-            res.updated = Math.floor(Date.now() / 1000)
-            resolve(res)
-          })
-          .catch(err => {
-            reject(err)
-          })
-      }))
-    }
-
-    productosPromiseMap.get(apiRoute).then(res => {
-      console.log("productos obtenidos 1::", res)
-      productosServiceState.productos = res.productos || []
-      productosServiceState.productosMap = res.productosMap || new Map()
-      productosServiceState.categorias = res.categorias || []
-      productosServiceState.categoriasMap = res.categoriasMap || new Map()
-    })
-  }
 
   return productosServiceState
 }

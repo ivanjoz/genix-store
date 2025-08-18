@@ -16,14 +16,14 @@
 <Header />
 
 <MainCarrusel {categorias} />
-<div class="h-800 demo">
+<div class="h-800 _1">
   <div>hola</div>
   <ProductCards />
 </div>
-<div class="h-800 demo flex"></div>
+<div class="h-800 _1 flex"></div>
 
 <style>
-  .demo {
+  ._1 {
     background-color: #f0eff3;
   }
 </style>

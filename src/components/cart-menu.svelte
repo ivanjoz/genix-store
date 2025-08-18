@@ -20,8 +20,8 @@
   </button>
 
   {#if layerOpenedState.id === 1}
-    <img class="absolute h-20 corner" alt="" src={parseSVG(angleSvg)} />
-    <div class="cart-content absolute p-12">
+    <img class="absolute h-20 _1" alt="" src={parseSVG(angleSvg)} />
+    <div class="_2 absolute p-12">
       <ArrowSteps selected={Ecommerce.cartOption}
         columnsTemplate={Globals.deviceType === 3 ? "1fr 1fr 1fr 0.7fr" : ""}
         onSelect={e => {
@@ -49,12 +49,12 @@
 </div>
 
 <style>
-  .corner {
+  ._1 {
     right: 40%;
     bottom: -10px;
     z-index: 121;
   }
-  .cart-content {
+  ._2 {
     top: 50px;
     width: 48rem;
     right: -12rem;

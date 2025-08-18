@@ -1,10 +1,29 @@
 import adapter from "@sveltejs/adapter-static";
-// import { vitePreprocess } from '@sveltejs/vite-plugin-svelte';
+
+const BASE64_CHARS =
+  "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+const fileNameMap = new Map()
+
+const numberToBase64 = (num) => {
+  let value = "";
+  while (num > 0) {
+    value = BASE64_CHARS[num % 62] + value;
+    num = Math.floor(num / 62);
+  }
+  return value;
+}
 
 /** @type {import('@sveltejs/kit').Config} */
 export default {
-  // Add preprocess here, it's essential for the compilerOptions to work
-  // preprocess: [vitePreprocess()],
+  compilerOptions: {
+    css: 'external',
+    cssHash: ({ filename }) => {
+      if(!fileNameMap.has(filename)){
+        fileNameMap.set(filename,fileNameMap.size + 1)
+      }
+      return numberToBase64(fileNameMap.get(filename))
+    },
+  },
   kit: {
     adapter: adapter({
       // default options are shown. On some platforms

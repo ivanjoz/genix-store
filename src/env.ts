@@ -2,14 +2,15 @@ export const IsClient = () => {
   return typeof window !== 'undefined'
 }
 const isClient = IsClient()
-let api = "https://dnh72xkkh3junf57p3vexemlvm0emgys.lambda-url.us-east-1.on.aws/api/"
+const apiPrd = "https://dnh72xkkh3junf57p3vexemlvm0emgys.lambda-url.us-east-1.on.aws/api/"
+const apiLocal = "http://localhost:3589/api/"
 
 // const DEV_HOSTS = ["d16qwm950j0pjf.cloudfront.net","genix-dev.un.pe"]
 if(isClient){
   if(window.location.host.includes("localhost") && window.location.host !== "localhost:8000"){
-    api = "http://localhost:3589/api/"
+    globalThis._isLocal = true
   }
-} 
+}
 
 export const getWindow = () => {
   if(isClient){ return window }
@@ -26,7 +27,7 @@ export const getWindow = () => {
 export const Env = {
   appId: "genix",
   S3_URL: "https://d16qwm950j0pjf.cloudfront.net/",
-  api,
+  api: globalThis._isLocal ? apiLocal : apiPrd,
   empresaID: 1,
   counterID: 1,
   zoneOffset: (new Date()).getTimezoneOffset() * 60,
@@ -34,6 +35,7 @@ export const Env = {
   params: { fetchID: 1001, fetchProcesses: new Map() },
   pendingRequests: [] as any[],
   makeRoute: (route: string) => {
+    const api = globalThis._isLocal ? apiLocal : apiPrd
     if(route[0] === "/"){ route = route.substring(1) }
     const sep = route.includes("?") ? "&" : "?"
     return api + route + sep + `empresa-id=${Env.empresaID}`

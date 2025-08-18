@@ -2,26 +2,61 @@ import tailwindcss from "@tailwindcss/vite";
 import { sveltekit } from "@sveltejs/kit/vite";
 import { defineConfig } from "vite";
 import { transform } from "esbuild";
+import fs from 'fs'
 
 // Custom base64 alphabet (CSS-safe characters only)
 const BASE64_CHARS =
   "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
 globalThis.cssClassCounter = 65;
 
-function numberToBase64(num, minLength = 2) {
-  if (num === 0) return "A".repeat(minLength);
-
-  let result = "";
+const numberToBase64 = (num) => {
+  let value = "";
   while (num > 0) {
-    result = BASE64_CHARS[num % 62] + result;
+    value = BASE64_CHARS[num % 62] + value;
     num = Math.floor(num / 62);
   }
-
-  return result;
+  return value;
 }
 
 const generateCounterClassName = () => {
-  return numberToBase64(globalThis.cssClassCounter++, 3);
+  return numberToBase64(globalThis.cssClassCounter++);
+};
+
+let cssClasses: string[] = []
+const cssNamesMap: Map<string,string> = new Map()
+let isPrerender = false
+
+const closeBundlePlugin = () => {
+  return {
+    name: 'close-plugin',    
+    configResolved(config) {
+      isPrerender = config.build.ssr
+      if(isPrerender){
+        fs.writeFileSync("css-build.txt","")
+      } else {
+        try {
+          const cssfile = fs.readFileSync("css-build.txt", { encoding: "utf-8" })
+          const lines = cssfile.split("\n")
+          for(const line of lines){
+            const [minifiedCode,key] = line.split(" ")
+            cssNamesMap.set(key,minifiedCode)
+          }
+          console.log(`se agregaron ${lines.length} css clases minificadas.`)
+          globalThis.cssClassCounter += lines.length + 1
+        } catch (error) {
+          console.log("No se encontró: css-build.txt")
+        }
+      }
+    },
+    transform(_, id) {
+      if(isPrerender && cssClasses.length > 0){
+        const cssClassesToAppend = [...cssClasses]
+        cssClasses = []        
+        fs.appendFileSync("css-build.txt",cssClassesToAppend.join("\n"))
+        console.log(`\nagregadas ${cssClassesToAppend.length} clases .css`)
+      }
+    },
+  };
 };
 
 export default defineConfig({
@@ -31,8 +66,6 @@ export default defineConfig({
       async transform(code, id) {
         // console.log("file:", id);
         if (id.includes(".js?raw")) {
-          // console.log("minificando:", id);
-          // console.log("minificando:", code);
           console.log("Processing with ?raw:", id);
           const match = code.match(/^export default "((?:.|\n)*)"$/);
 
@@ -42,15 +75,8 @@ export default defineConfig({
             console.log("Code extracted. Original length:", rawCode.length);
 
             const result = await transform(rawCode, {
-              minify: true,
-              loader: "js",
-              // The format should be 'esm' or 'iife' depending on usage,
-              // but since we are wrapping it back as a string, it doesn't matter much.
-              format: "esm",
+              minify: true, loader: "js", format: "esm",
             });
-
-            // console.log("Code minified. Minified:", result.code);
-
             // Re-wrap the minified code in the 'export default "..."' format
             // The JSON.stringify handles escaping characters.
             return `export default ${JSON.stringify(result.code)}`;
@@ -60,29 +86,31 @@ export default defineConfig({
     },
     tailwindcss(),
     sveltekit(),
+    closeBundlePlugin()
   ],
   // assetsInclude: ["*/blurhash.js"],
   css: {
     modules: {
-      generateScopedName: (name, filename, css) => {
+      generateScopedName: (name, filename_, css) => {
+        const filename = filename_.split("/src/")[1]
         // Generate short names in production
         if (process.env.NODE_ENV === "production") {
-          return generateCounterClassName();
+          const key = `${name}__${filename}`
+          if(cssNamesMap.has(key)){
+            return cssNamesMap.get(key) as string
+          }
+          const minifiedCode = generateCounterClassName()
+          cssClasses.push(`${minifiedCode} ${key}`)
+          // console.log(`[${code}] ${name} | ${filename}`)
+          return minifiedCode;
+        } else {
+          return name +"__"+ generateCounterClassName();
         }
-        return name +"__"+ generateCounterClassName();
       },
     },
   },
   build: {
     rollupOptions: {
-      /*
-      external: (id) => {
-        // Skip processing of missing images during build
-        if (id.includes('/images/')) {
-          return true;
-        }
-      },
-      */
       output: {
         manualChunks: (id) => {
           return "my-app";

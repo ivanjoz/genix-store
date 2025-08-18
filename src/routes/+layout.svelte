@@ -3,8 +3,12 @@
   import "../app.css";
   import "../lib/fontello-prerender.css";
   import blurhashScript from "../lib/blurhash.js?raw";
-  import '../lib/fontello-embedded.css';
-  let { children } = $props();
+  import { productosServiceState } from "../services/productos.svelte.js";
+  let { children, data } = $props();
+
+  productosServiceState.categorias = data.productos.categorias
+  productosServiceState.productos = data.productos.productos
+
 </script>
 
 <svelte:head>

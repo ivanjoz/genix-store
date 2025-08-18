@@ -72,7 +72,7 @@ async function inlineCss() {
           // 6. Write the modified content back to the HTML file
           await fs.writeFile(htmlPath, htmlContent, 'utf-8');
 
-          console.log(`✅ Inlined CSS for: ${path.basename(htmlPath)}`);
+          console.log(`✅ Inlined CSS for: ${path.basename(htmlPath)} | ${cssRelativePath}`);
         } else {
           console.log(`⏩ Skipped: No SvelteKit CSS link found in ${path.basename(htmlPath)}.`);
         }

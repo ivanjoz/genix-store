@@ -1,11 +1,9 @@
 <script>
-  const { categoriaID = 0 } = $props();
-
-  import { useProductosService } from "../services/productos.svelte";
+  import { productosServiceState } from "../services/productos.svelte";
   import ProductCard from "./ProductCard.svelte";
   import s1 from "./styles.module.css";
 
-  const productos = useProductosService()
+  const productos = productosServiceState
 
   // Load data when component mounts
   $effect(() => {
