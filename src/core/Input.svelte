@@ -131,13 +131,13 @@
   <div class={s1.input_shadow_layer}>
     <div></div>
   </div>
-  <div class={`${s1.input_div} flex w100`}>
+  <div class={`${s1.input_div} flex w-full`}>
     <div class={s1.input_div_1}>
       <div></div>
     </div>
     {#if useTextArea}
       <textarea
-        class={`${s1.input_inp} ${inputCss || ""}`}
+        class={`w-full ${s1.input_inp} ${inputCss || ""}`}
         bind:value={inputValue}
         placeholder={placeholder || ""}
         {disabled}
@@ -156,7 +156,7 @@
       ></textarea>
     {:else}
       <input
-        class={`${s1.input_inp} ${inputCss || ""}`}
+        class={`w-full ${s1.input_inp} ${inputCss || ""}`}
         bind:value={inputValue}
         type={type || "text"}
         placeholder={placeholder || ""}

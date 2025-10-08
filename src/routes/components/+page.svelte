@@ -1,5 +1,13 @@
 <script>
   import Input from "../../core/Input.svelte";
+    import SearchSelect from "../../core/SearchSelect.svelte";
+   
+  let options = [
+    { id: 1, nombre: "Ivan Joseph Angulo" },
+    { id: 2, nombre: "Pedro Pascal Armando" },
+    { id: 3, nombre: "Sergio Bonamasa" },
+    { id: 4, nombre: "Ricardo Ríos del Agua" },
+  ]
 
   let form = {};
 </script>
@@ -9,9 +17,13 @@
     <div class="h-40">
       <div class="text-[24px]">Componentes</div>
     </div>
-    <Input label="Nombre Usuario das das dasd asd asdas" css="w-200 m-6" saveOn={form} save="nombre"></Input>
+    <Input label="Nombre Usuario das das dasd asd asdas" css="w-200 m-6" saveOn={form} save="nombre" />
 
-    <Input label="Nombre Usuario 2" css="w-200 m-6" saveOn={form} save="nombre"></Input>
+    <Input label="Nombre Usuario 2" css="w-200 m-6" saveOn={form} save="nombre" />
+
+    <SearchSelect label="Usuarios" css="w-200 mr-6" saveOn={form} save="nombre"
+      options={options} keys="id.nombre"
+    />
 
     <button
       onclick={() => {

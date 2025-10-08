@@ -24,45 +24,36 @@ const generateCounterClassName = () => {
 
 let cssClasses: string[] = []
 const cssNamesMap: Map<string,string> = new Map()
-let isPrerender = false
-
-const closeBundlePlugin = () => {
-  return {
-    name: 'close-plugin',    
-    configResolved(config) {
-      isPrerender = config.build.ssr
-      if(isPrerender){
-        fs.writeFileSync("css-build.txt","")
-      } else {
-        try {
-          const cssfile = fs.readFileSync("css-build.txt", { encoding: "utf-8" })
-          const lines = cssfile.split("\n")
-          for(const line of lines){
-            const [minifiedCode,key] = line.split(" ")
-            cssNamesMap.set(key,minifiedCode)
-          }
-          console.log(`se agregaron ${lines.length} css clases minificadas.`)
-          globalThis.cssClassCounter += lines.length + 1
-        } catch (error) {
-          console.log("No se encontró: css-build.txt")
-        }
-      }
-    },
-    transform(_, id) {
-      if(isPrerender && cssClasses.length > 0){
-        const cssClassesToAppend = [...cssClasses]
-        cssClasses = []        
-        fs.appendFileSync("css-build.txt",cssClassesToAppend.join("\n"))
-        console.log(`\nagregadas ${cssClassesToAppend.length} clases .css`)
-      }
-    },
-  };
-};
+globalThis._isPrerender = false
+globalThis._fileNameMap = new Map()
 
 export default defineConfig({
   plugins: [
     {
-      name: "minify-raw-js",
+      name: "plugin-1",
+      configResolved(config) {
+        globalThis._isPrerender = config.build.ssr
+        if(globalThis._isPrerender){
+          fs.writeFileSync("css-build.txt","")
+        } else {
+          try {
+            const cssfile = fs.readFileSync("css-build.txt", { encoding: "utf-8" })
+            const lines = cssfile.split("\n")
+            for(const line of lines){
+              const [cType,minifiedCode,key] = line.split(" ")
+              if(cType === "1"){
+                cssNamesMap.set(key,minifiedCode)
+              } else if(cType === "2"){
+                globalThis._fileNameMap.set(key, minifiedCode)
+              }
+            }
+            console.log(`se agregaron ${cssNamesMap.size} css clases minificadas.`)
+            globalThis.cssClassCounter += cssNamesMap.size + 1
+          } catch (error) {
+            console.log("No se encontró: css-build.txt")
+          }
+        }
+      },
       async transform(code, id) {
         // console.log("file:", id);
         if (id.includes(".js?raw")) {
@@ -83,10 +74,19 @@ export default defineConfig({
           }
         }
       },
+      buildEnd(){
+        if(globalThis._isPrerender && cssClasses.length > 0){
+          const cssClassesToAppend = [...cssClasses]
+          for(const [filename, minifiedCode] of globalThis._fileNameMap.entries()){
+            cssClassesToAppend.push([2,minifiedCode,filename].join(" "))
+          }
+          fs.appendFileSync("css-build.txt",cssClassesToAppend.join("\n"))
+          console.log(`\nagregadas ${cssClassesToAppend.length} clases .css`)
+        }
+      }
     },
     tailwindcss(),
     sveltekit(),
-    closeBundlePlugin()
   ],
   // assetsInclude: ["*/blurhash.js"],
   css: {
@@ -100,7 +100,7 @@ export default defineConfig({
             return cssNamesMap.get(key) as string
           }
           const minifiedCode = generateCounterClassName()
-          cssClasses.push(`${minifiedCode} ${key}`)
+          cssClasses.push(`1 ${minifiedCode} ${key}`)
           // console.log(`[${code}] ${name} | ${filename}`)
           return minifiedCode;
         } else {

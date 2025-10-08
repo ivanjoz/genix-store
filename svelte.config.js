@@ -2,7 +2,6 @@ import adapter from "@sveltejs/adapter-static";
 
 const BASE64_CHARS =
   "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-const fileNameMap = new Map()
 
 const numberToBase64 = (num) => {
   let value = "";
@@ -18,10 +17,13 @@ export default {
   compilerOptions: {
     css: 'external',
     cssHash: ({ filename }) => {
-      if(!fileNameMap.has(filename)){
-        fileNameMap.set(filename,fileNameMap.size + 1)
+      filename = filename.split("/src/")[1]
+      if(!globalThis._fileNameMap.has(filename)){
+        const code = numberToBase64(globalThis._fileNameMap.size + 1)
+        globalThis._fileNameMap.set(filename, code)
+        console.log("\nhash filename::", filename)
       }
-      return numberToBase64(fileNameMap.get(filename))
+      return globalThis._fileNameMap.get(filename)
     },
   },
   kit: {
@@ -74,17 +76,4 @@ export default {
       },
     },
   },
-  /*
-  compilerOptions: {
-    dev: true,
-    cssHash: ({ hash, css, name, filename }) => {
-      console.log("css:",css,"|",name)
-      // Generate short names in production
-      if (import.meta.env.PROD) {
-        return generateCounterClassName();
-      }
-      return name +"__"+ generateCounterClassName();
-    }
-  }
-  */
 };
