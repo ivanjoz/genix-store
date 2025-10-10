@@ -10,6 +10,7 @@
   let imageSrc = "";
   let placeholderSrc = "";
   let placeholderClass: string | undefined = undefined;
+  let showPlaceholder = true
 
   if (hash?.length > 0) {
     imageSrc =
@@ -31,6 +32,10 @@
 </script>
 
 <div class={[s1.image_hash_ctn, css || ""].join(" ")}>
-  <img src={placeholderSrc} class={placeholderClass} loading="lazy" alt="" />
-  <img src={imageSrc} {alt} loading="lazy"/>
+  {#if showPlaceholder}
+    <img src={placeholderSrc} class={placeholderClass} loading="lazy" alt="" /> 
+  {/if}
+  <img src={imageSrc} {alt} loading="lazy"
+    onload={() => { showPlaceholder = false }}
+  />
 </div>

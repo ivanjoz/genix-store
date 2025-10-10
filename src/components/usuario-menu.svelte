@@ -6,7 +6,7 @@
   }
 </script>
 
-<div class="relative w-120">
+<div class="relative w-120 hidden md:block">
   <button class="bn1 w-full" onclick={toggleLayer}>
     <i class="icon1-user"></i>
     <span>Mi Usuario</span>

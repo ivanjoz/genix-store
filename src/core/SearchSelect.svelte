@@ -306,7 +306,7 @@
   {/if}
   {#if show && !useLayerPicker}
     <div
-      class="search-ctn z20 w100{arrowSelected >= 0 ? ' on-arrow' : ''}"
+      class="search-ctn z-40 w-full{arrowSelected >= 0 ? ' on-arrow' : ''}"
       onmousemove={avoidhover
         ? (ev) => {
             console.log("hover aqui:: ", arrowSelected);

@@ -14,11 +14,11 @@
   }
 </script>
 
-<div class="flex items-center p-12">
+<div class="flex items-center  p-4 md:p-12">
   <div class="flex w-full justify-center items-center flex-wrap">
     {#each categorias as e}
       <div
-        class={"flex flex-col h-240 w-240 mx-16 m-12 " +
+        class={"flex flex-col w-[calc(50vw-16px)] h-160 md:h-240 md:w-240 m-6 md:m-12 " +
           s1.producto_caregoria_card}
       >
         <div class="w-full h-[calc(100%-40px)] relative px-12 pt-16">

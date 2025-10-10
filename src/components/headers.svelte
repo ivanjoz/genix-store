@@ -3,6 +3,7 @@
   import SearchBar from "./search-bar.svelte";
   import CartMenu from "./cart-menu.svelte";
   import UsuarioMenu from "./usuario-menu.svelte";
+    import { layerOpenedState } from "./store.svelte";
 
   // State for mobile menu
   let mobileMenuOpen = $state(false);
@@ -49,17 +50,23 @@
 >
   hola
 </div>
-<div
-  class="sub-header s1 flex items-center justify-between w-full left-0 {isSubheaderFixed
-    ? 'h-52 top-0 fixed z-110'
-    : 'h-68 top-48 absolute'}"
+<div class="sub-header s1 flex items-center justify-between w-full left-0 {isSubheaderFixed
+    ? 'h-47 md:h-52 top-0 fixed z-110'
+    : 'h-58 md:h-68 top-48 absolute'}"
 >
   <div></div>
   <SearchBar />
-  <div class="flex">
-    <CartMenu css="mr-8" />
+  <div class="flex h-42">
+    <CartMenu css="mr-8 hidden md:block relative w-120 h-full" id={1}/>
     <UsuarioMenu />
+    <button class="block md:hidden" onclick={ev => {
+      ev.stopPropagation()
+      layerOpenedState.id = layerOpenedState.id ? 0 : 2
+    }}>
+      <i class="icon1-basket"></i>
+    </button>
   </div>
+  <CartMenu isMobile={true} id={2}/>
 </div>
 
 <style>

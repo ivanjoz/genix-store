@@ -1,13 +1,13 @@
 import { Env } from "../env"
 
-interface ICiudad {
+export interface ICiudad {
   ID: string
   Nombre: string
   PadreID: string
   Nivel?: number
 }
 
-interface ICiudadesResult {
+export interface ICiudadesResult {
   departamentos: ICiudad[]
   provincias: ICiudad[]
   distritos: ICiudad[]

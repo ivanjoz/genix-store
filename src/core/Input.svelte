@@ -74,13 +74,13 @@
     return pass ? 2 : 1;
   }
 
-  function onKeyUp(ev: KeyboardEvent, isBlur?: boolean) {
+  function onKeyUp(ev: KeyboardEvent | FocusEvent, isBlur?: boolean) {
     ev.stopPropagation();
     const target = ev.target as HTMLInputElement | HTMLTextAreaElement;
     let value: string | number = target.value;
 
     if (type === "number") {
-      if (!isBlur && !value && ev.key === "-") return;
+      if (!isBlur && !value && (ev as KeyboardEvent).key === "-") return;
       if (isNaN(value as unknown as number)) {
         value = undefined as any;
       } else {

@@ -39,7 +39,7 @@
   );
 </script>
 
-<div class="grid mr-08" style:grid-template-columns={gridTemplateColumns}>
+<div class="grid mr-8" style:grid-template-columns={gridTemplateColumns}>
   {#each options as option (option.id)}
     <!-- svelte-ignore a11y_click_events_have_key_events -->
     <!-- svelte-ignore a11y_no_static_element_interactions -->

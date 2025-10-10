@@ -21,7 +21,7 @@
 
     <Input label="Nombre Usuario 2" css="w-200 m-6" saveOn={form} save="nombre" />
 
-    <SearchSelect label="Usuarios" css="w-200 mr-6" saveOn={form} save="nombre"
+    <SearchSelect label="Usuarios" css="w-200 mr-6" saveOn={form} save="ciudadID"
       options={options} keys="id.nombre"
     />
 
