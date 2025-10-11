@@ -61,7 +61,13 @@ async function inlineCss() {
           const cssFullPath = path.join(path.dirname(htmlPath), cssRelativePath);
 
           // 3. Read the CSS file content
-          const cssContent = await fs.readFile(cssFullPath, 'utf-8');
+          let cssContent = await fs.readFile(cssFullPath, 'utf-8');
+
+          const TAILWIND_BLOCK_REGEX = /\/\*! tailwindcss v4\.1\.12[\s\S]*?--tw-drop-shadow-size:initial\}\}\}/g;
+          cssContent = cssContent.replace(TAILWIND_BLOCK_REGEX, '');
+
+          // const SPACING_CALC_REGEX = /calc\(var\(--spacing\)\s*\*\s*([0-9]+(?:\.[0-9]+)?)\)/g;
+          //cssContent = cssContent.replace(SPACING_CALC_REGEX, '$1');
 
           // 4. Create the inline style tag
           const styleTag = `<style>${cssContent}</style>`;

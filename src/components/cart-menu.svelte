@@ -1,9 +1,14 @@
 <script lang="ts">
-  export let css: string = "";
-  export let isMobile: boolean = false;
-  export let id: number;
 
-  import { layerOpenedState } from "./store.svelte";
+  export interface IProps {
+    id: number, isMobile?: boolean, css?: string
+  }
+  
+  const { 
+    id = 0, isMobile = false, css = ""
+  }: IProps = $props();
+
+  import { layerOpenedState, ProductsSelectedMap } from "./store.svelte";
   import angleSvg from "../assets/angle.svg?raw";
   import { parseSVG } from "../functions/helpers";
   import s1 from "./styles.module.css"
@@ -11,6 +16,7 @@
   import { Ecommerce, Globals } from "../stores/globals.svelte";
   import Input from "../core/Input.svelte";
   import CiudadesSelector from "./CiudadesSelector.svelte";
+  import ProductCardHorizonal from "./ProductCardHorizonal.svelte";
 
   let userForm = {}
 
@@ -59,7 +65,12 @@
         {/snippet}
       </ArrowSteps>
       {#if Ecommerce.cartOption === 1}
-
+        <div class="mt-8 mb-8 fs18 ff-bold">Total a pagar: </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-12 p-4">
+          {#each ProductsSelectedMap.values() as cartProducto}
+            <ProductCardHorizonal producto={cartProducto.producto} />
+          {/each}
+        </div>
       {/if}
       {#if Ecommerce.cartOption === 2}
         <div class="mt-8 mb-8 fs18 ff-bold">Total a pagar: </div>

@@ -13,6 +13,7 @@
 
   // Handle scroll effect
   onMount(() => {
+    /*
     const handleScroll = () => {
       // console.log("comparison:", window.scrollY, subheaderElement.offsetTop);
 
@@ -28,6 +29,7 @@
     return () => {
       window.removeEventListener("scroll", handleScroll);
     };
+    */
   });
 
   // Toggle mobile menu
@@ -41,20 +43,13 @@
   }
 </script>
 
-<div class="header flex justify-between text-white h-48"></div>
-<div
-  class="sub-header flex justify-between w-full {isSubheaderFixed
-    ? 'h-52'
-    : 'h-68'}"
-  bind:this={subheaderElement}
->
-  hola
+<div class="_2 flex justify-between text-white h-48"></div>
+<div id="sh-0" class="flex justify-between w-full h-68">
+  header
 </div>
-<div class="sub-header s1 flex items-center justify-between w-full left-0 {isSubheaderFixed
-    ? 'h-47 md:h-52 top-0 fixed z-110'
-    : 'h-58 md:h-68 top-48 absolute'}"
+<div id="sh-1" class="_1 h-58 md:h-68 top-48 absolute flex items-center justify-between w-full left-0 -58 md:h-68 top-48"
 >
-  <div></div>
+  <div>_</div>
   <SearchBar />
   <div class="flex h-42">
     <CartMenu css="mr-8 hidden md:block relative w-120 h-full" id={1}/>
@@ -66,29 +61,12 @@
       <i class="icon1-basket"></i>
     </button>
   </div>
-  <CartMenu isMobile={true} id={2}/>
+  <CartMenu isMobile={true} id={2} css="absolute w-full top-[100%] left-0"/>
 </div>
 
 <style>
-  .header {
+  ._2 {
     background-color: #336686;
     padding: 0 80px 0 80px;
-  }
-  .sub-header {
-    background-color: #ffffff;
-    padding: 0 80px 0 80px;
-    transition: height 0.3s ease;
-  }
-
-  .sub-header.s1 {
-    box-shadow:
-      rgba(0, 0, 0, 0.16) 0px 2px 6px,
-      rgba(0, 0, 0, 0.2) 0px 2px 8px;
-    z-index: 200;
-  }
-
-  /* Custom styles for smooth transitions */
-  :global(body) {
-    scroll-behavior: smooth;
   }
 </style>
