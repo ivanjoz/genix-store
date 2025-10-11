@@ -6,6 +6,7 @@
 	"scripts": {
 		"dev": "vite dev",
 		"build": "vite build && node postbuild",
+		"publish": "vite build && node postbuild --publish",
 		"build:prerender": "svelte-kit build --prerender",
 		"preview": "vite preview",
 		"prepare": "svelte-kit sync || echo ''",

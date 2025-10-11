@@ -35,8 +35,10 @@
   {/if}
 
   {#if layerOpenedState.id === id}
-    <img class="absolute h-20 _1" alt="" src={parseSVG(angleSvg)} />
-    <div class="_2 absolute p-12">
+    <img class={"absolute h-20 _1 "+(isMobile ? "right-17" : "right-[40%]")} alt="" 
+      src={parseSVG(angleSvg)} 
+    />
+    <div class="_2 absolute p-12 flex flex-col">
       <ArrowSteps selected={Ecommerce.cartOption}
         columnsTemplate={Globals.deviceType === 3 ? "1fr 1fr 1fr 0.7fr" : ""}
         onSelect={e => {
@@ -64,32 +66,33 @@
           {/if}
         {/snippet}
       </ArrowSteps>
-      {#if Ecommerce.cartOption === 1}
-        <div class="mt-8 mb-8 fs18 ff-bold">Total a pagar: </div>
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-12 p-4">
-          {#each ProductsSelectedMap.values() as cartProducto}
-            <ProductCardHorizonal producto={cartProducto.producto} />
-          {/each}
-        </div>
-      {/if}
-      {#if Ecommerce.cartOption === 2}
-        <div class="mt-8 mb-8 fs18 ff-bold">Total a pagar: </div>
-        <div class="grid grid-cols-12 gap-12">
-          <Input label="Nombres" css="col-span-6" saveOn={userForm} save="nombres" required={true} />
-          <Input label="Apellidos" css="col-span-6" saveOn={userForm} save="apellidos" required={true} />
-          <Input label="Correo Electrónico" css="col-span-6" saveOn={userForm} save="email" required={true} />
-          <CiudadesSelector saveOn={userForm} save="ciudadID" css="col-span-6"/>
-          <Input label="Dirección" css="col-span-6" saveOn={userForm} save="direccion" required={true} />
-          <Input label="Referencia" css="col-span-6" saveOn={userForm} save="referencia" />
-        </div>
-      {/if}
+      <div class="w-full px-4 overflow-auto grow-1 mt-4">
+        {#if Ecommerce.cartOption === 1}
+          <div class="mt-8 mb-8 fs18 ff-bold">Total a pagar: </div>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-12 pb-6">
+            {#each ProductsSelectedMap.values() as cartProducto}
+              <ProductCardHorizonal producto={cartProducto.producto} />
+            {/each}
+          </div>
+        {/if}
+        {#if Ecommerce.cartOption === 2}
+          <div class="mt-8 mb-8 fs18 ff-bold">Total a pagar: </div>
+          <div class="grid grid-cols-12 gap-12">
+            <Input label="Nombres" css="col-span-6" saveOn={userForm} save="nombres" required={true} />
+            <Input label="Apellidos" css="col-span-6" saveOn={userForm} save="apellidos" required={true} />
+            <Input label="Correo Electrónico" css="col-span-6" saveOn={userForm} save="email" required={true} />
+            <CiudadesSelector saveOn={userForm} save="ciudadID" css="col-span-6"/>
+            <Input label="Dirección" css="col-span-6" saveOn={userForm} save="direccion" required={true} />
+            <Input label="Referencia" css="col-span-6" saveOn={userForm} save="referencia" />
+          </div>
+        {/if}
+      </div>
     </div>
   {/if}
 </div>
 
 <style>
   ._1 {
-    right: 40%;
     bottom: -10px;
     z-index: 121;
   }

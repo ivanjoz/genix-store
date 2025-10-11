@@ -10,17 +10,41 @@
       event.preventDefault(); // Prevent the default action (inserting a new line)
     }
   }
+  //  placeholder="Buscar producto::"
 </script>
 
-<div
-  class={s1.search_top_bar_ctn +
-    " search-ctn relative lg:w-340 w-400 hidden md:flex"}
->
+<div class="_1 relative lg:w-340 w-[34vw]">
   <textarea
-    class={s1.search_top_bar_input + " w-full"}
+    class="_2 w-full pl-12 rounded-[16px] pt-10 pl-14"
     cols="1"
     onkeydown={handleKeydown}
-    placeholder="Buscar producto::"
+    placeholder="Buscar..."
   ></textarea>
-  <i class="icon1-search absolute top-10 right-10"></i>
+  <i class="icon1-search absolute top-8 md:top-9 right-7 md:right-10"></i>
 </div>
+
+<style>
+
+  ._1, ._2 {
+    height: 36px;
+  }
+  ._1 > i {
+    color: #6d698d;
+  }
+  ._2 {
+    box-shadow:#20202329 0px 1px 3px, #20202329 0px 1px 2px;
+    line-height: 1;
+    outline: none;
+    border: none;
+    background-color: #eae9ef;
+    resize: none;
+  }
+
+  @media (max-width: 740px) {
+    ._1, ._2 {
+      height: 36px;
+      box-shadow: none;
+    }
+  }
+
+</style>

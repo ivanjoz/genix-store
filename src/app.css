@@ -88,6 +88,8 @@ html {
 .ff-mono, .ff-mono p { font-family: mono; }
 .ff-mono500, .ff-mono500 p { font-family: mono500; }
 .fs-italic { font-style: italic; }
+.fs14 { font-size: 14px; }
+.fs15 { font-size: 15px; }
 .fs17 { font-size: 17px; }
 
 .fx-c {
@@ -104,7 +106,6 @@ html {
   transition: height 0.3s ease;
 }
 #sh-1 {
-  padding: 0 80px 0 80px;
   background-color: #ffffff;
     box-shadow:
     rgba(0, 0, 0, 0.16) 0px 2px 6px,
@@ -112,9 +113,14 @@ html {
   z-index: 200;
 }
 #sh-0.s1, #sh-0.s1 + #sh-1 {
-  height: 47px;
+  height: 52px;
 }
 #sh-0.s1 + #sh-1 {
   position: fixed;
   top: 0;
+}
+@media (max-width: 739px) {
+  #sh-0.s1, #sh-0.s1 + #sh-1 {
+    height: 47px;
+  }
 }
