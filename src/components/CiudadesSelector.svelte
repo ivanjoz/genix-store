@@ -75,7 +75,7 @@
     console.log("departamento::", e)
     form.distritoID = null
     form.provinciaID = null
-    provincias = ciudades.ciudadHijosMap.get(e.ID)
+    provincias = ciudades.ciudadHijosMap.get(e?.ID) || []
     distritos = []
     doSave()
   }}
@@ -85,7 +85,7 @@
   options={provincias}
   onChange={e => {
     form.distritoID = null
-    distritos = ciudades.ciudadHijosMap.get(e.ID)
+    distritos = ciudades.ciudadHijosMap.get(e?.ID) || []
     doSave()
   }}
 />

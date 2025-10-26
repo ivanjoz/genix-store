@@ -305,8 +305,7 @@
     </div>
   {/if}
   {#if show && !useLayerPicker}
-    <div
-      class="search-ctn z-40 w-full{arrowSelected >= 0 ? ' on-arrow' : ''}"
+    <div class="p-4 _1 left-0 z-40 w-full{arrowSelected >= 0 ? ' on-arrow' : ''}"
       onmousemove={avoidhover
         ? (ev) => {
             console.log("hover aqui:: ", arrowSelected);
@@ -320,8 +319,7 @@
     >
       {#each filteredOptions as e, i}
         {@const name = String(e[keyName])}
-        <div
-          class="flex ai-center _highlight{arrowSelected === i
+        <div class="flex ai-center _highlight{arrowSelected === i
             ? ' _selected'
             : ''}"
           onmousedown={(ev) => {
@@ -329,9 +327,9 @@
             onOptionClick(e);
           }}
         >
-          <div class="txt">
+          <div>
             {#each highlString(name, words) as w}
-              <span class={w.highl ? "_highl" : ""}>{w.text}</span>
+              <span class={w.highl ? "_8" : ""}>{w.text}</span>
             {/each}
           </div>
         </div>
@@ -342,24 +340,28 @@
 
 <style>
   /* Import component styles - adjust path as needed */
-  .search-ctn {
+  ._1 {
     position: absolute;
     top: 100%;
-    left: 0;
     background: white;
     border: 1px solid #ccc;
     border-radius: 4px;
     max-height: 300px;
     overflow-y: auto;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+    border-radius: 6px;
   }
 
-  .search-ctn > div {
-    padding: 0.5rem;
+  ._1 > div {
+    display: flex;
+    align-items: center;
+    height: 36px;
     cursor: pointer;
+    padding: 0 6px 0 6px;
+    border-radius: 4px;
   }
 
-  .search-ctn > div:hover {
+  ._1 > div:hover {
     background-color: #f0f0f0;
   }
 
@@ -371,5 +373,10 @@
     font-style: normal;
     font-weight: bold;
     color: #1890ff;
+  }
+
+  ._8 {
+    color: rgb(196, 71, 71);
+    text-decoration: underline;
   }
 </style>
