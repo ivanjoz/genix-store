@@ -1,8 +1,10 @@
 <script lang="ts">
   import Header from "../components/headers.svelte";
   import MainCarrusel from "../components/MainCarrusel.svelte";
+    import ProductCard from "../components/ProductCard.svelte";
   import ProductCards from "../components/ProductCards.svelte";
   import type { ICategoriaProducto } from "../components/types";
+    import MobileMenu from "../core/MobileMenu.svelte";
 
   let categorias: ICategoriaProducto[] = [
     { Name: "Perfumes", Image: "images/categoria_1.webp" },
@@ -14,7 +16,7 @@
 </script>
 
 <Header />
-
+<MobileMenu />
 <MainCarrusel {categorias} />
 <div class="h-800 _1">
   <div>hola</div>

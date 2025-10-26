@@ -1,21 +1,19 @@
 <script lang="ts">
   import { formatN, formatTime } from "../functions/helpers";
   import type { IProducto } from "../services/productos.svelte";
-
+  import ImageHash from "./imagehash.svelte";
+  import { addProductoCant, ProductsSelectedMap } from "./store.svelte";
+  
   const { 
     producto = null as IProducto, css = ""
   } = $props();
-
-  import ImageHash from "./imagehash.svelte";
-    import { addProductoCant, ProductsSelectedMap } from "./store.svelte";
-  import s1 from "./styles.module.css";
 
   const prodCant = $derived.by(() => {
     return ProductsSelectedMap.get(producto.ID)?.cant || 0
   })
 </script>
 
-<div class="flex relative _1 h-100 md:h-110 rounded-[7px]">
+<div class="flex relative _1 h-88 md:h-110 rounded-[7px]">
   <div class="p-8">
     <ImageHash css="w-88 md:w-100 h-[100%]" src={producto.Image?.n} />
   </div>

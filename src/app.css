@@ -91,6 +91,8 @@ html {
 .fs14 { font-size: 14px; }
 .fs15 { font-size: 15px; }
 .fs17 { font-size: 17px; }
+.fs18 { font-size: 18px; }
+.fs20 { font-size: 20px; }
 
 .fx-c {
   display: flex;
@@ -123,4 +125,41 @@ html {
   #sh-0.s1, #sh-0.s1 + #sh-1 {
     height: 47px;
   }
+}
+
+/* View Transitions for Mobile Menu */
+@keyframes slide-out {
+  from {
+    transform: translateX(0);
+    opacity: 1;
+  }
+  to {
+    transform: translateX(-100%);
+    opacity: 1;
+  }
+}
+
+@keyframes slide-in {
+  from {
+    transform: translateX(-100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+/* When closing: OLD snapshot slides out to the left */
+::view-transition-old(mobile-side-menu) {
+  animation: slide-out 0.3s ease-in-out forwards;
+  animation-fill-mode: forwards;
+}
+
+/* When opening: NEW snapshot slides in from the left */
+::view-transition-new(mobile-side-menu) {
+  animation: slide-in 0.3s ease-in-out;
+}
+
+/* Prevent the default fade out on OLD snapshot */
+::view-transition-image-pair(mobile-side-menu) {
+  isolation: auto;
 }

@@ -1,10 +1,10 @@
-<script lang="ts">
+<script lang="ts" generics="T">
   import s1 from "./core.module.css";
 
-  export interface IInput {
+  export interface IInput<T> {
     id?: number;
-    saveOn: any;
-    save: string;
+    saveOn: T;
+    save: keyof T;
     label?: string;
     css?: string;
     inputCss?: string;
@@ -41,7 +41,7 @@
     transform,
     useTextArea,
     rows,
-  }: IInput = $props();
+  }: IInput<T> = $props();
 
   // Shared reactive state
   let inputUpdater = $state(new Map<number, number>());

@@ -101,7 +101,7 @@
     width: 48rem;
     right: -12rem;
     max-width: calc(82vw - 24px);
-    height: calc(100vh - 140px);
+    height: calc(100vh - 120px);
     background-color: #fff;
     z-index: 120;
     box-shadow:

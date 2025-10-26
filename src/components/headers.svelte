@@ -4,6 +4,7 @@
   import CartMenu from "./cart-menu.svelte";
   import UsuarioMenu from "./usuario-menu.svelte";
     import { layerOpenedState, ProductsSelectedMap } from "./store.svelte";
+    import { Core } from "../core/store.svelte";
 
   // State for mobile menu
   let mobileMenuOpen = $state(false);
@@ -53,7 +54,14 @@
 <div id="sh-1" class="_1 h-58 w-full md:h-68 top-48 absolute flex items-center md:justify-between w-full left-0 px-4 md:px-80"
 >
   <div class="hidden md:block"></div>
-  <button class="_6 fx-c w-[14vw] md:hidden!">
+  <button class="_6 fx-c w-[14vw] md:hidden!" onclick={ev => {
+    ev.stopPropagation()
+    if (document.startViewTransition) {
+      document.startViewTransition(() => {
+        Core.mobileMenuOpen = 1
+      })
+    }
+  }}>
     <i class="text-[22px] icon-menu"></i>
   </button>
   <SearchBar />
